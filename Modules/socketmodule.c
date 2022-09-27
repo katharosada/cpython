@@ -315,6 +315,10 @@ shutdown(how) -- shut down traffic in one or both directions\n\
 // For if_nametoindex() and if_indextoname()
 #include <iphlpapi.h>
 
+
+
+
+
 /* remove some flags on older version Windows during run-time.
    https://msdn.microsoft.com/en-us/library/windows/desktop/ms738596.aspx */
 typedef struct {
@@ -532,6 +536,17 @@ remove_unusable_flags(PyObject *m)
    by this module (but not argument type or memory errors, etc.). */
 static PyObject *socket_herror;
 static PyObject *socket_gaierror;
+
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/websocket.h>
+#include <emscripten/threading.h>
+#include <emscripten/posix_socket.h>
+
+static EMSCRIPTEN_WEBSOCKET_T bridgeSocket = 0;
+#endif // __EMSCRIPTEN__
+
 
 /* A forward reference to the socket type object.
    The sock_type variable contains pointers to various functions,
@@ -5700,7 +5715,6 @@ Return the IP address (a string of the form '255.255.255.255') for a host.");
 #endif
 
 
-#if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME) || defined (HAVE_GETHOSTBYADDR)
 static PyObject*
 sock_decode_hostname(const char *name)
 {
@@ -5713,6 +5727,8 @@ sock_decode_hostname(const char *name)
     return PyUnicode_FromString(name);
 #endif
 }
+
+#if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME) || defined (HAVE_GETHOSTBYADDR)
 
 /* Convenience function common to gethostbyname_ex and gethostbyaddr */
 
@@ -8692,6 +8708,17 @@ PyInit__socket(void)
         return NULL;
     }
 #endif
+
+#ifdef __EMSCRIPTEN__
+  bridgeSocket = emscripten_init_websocket_to_posix_socket_bridge("ws://localhost:8080");
+  // Synchronously wait until connection has been established.
+  uint16_t readyState = 0;
+  do {
+    emscripten_websocket_get_ready_state(bridgeSocket, &readyState);
+    emscripten_thread_sleep(100);
+  } while (readyState == 0);
+#endif
+
 
     return m;
 }

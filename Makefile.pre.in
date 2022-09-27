@@ -816,11 +816,11 @@ $(WASM_STDLIB): $(srcdir)/Lib/*.py $(srcdir)/Lib/*/*.py \
 	$(PYTHON_FOR_BUILD) $(srcdir)/Tools/wasm/wasm_assets.py \
 	    --buildroot . --prefix $(prefix)
 
-python.html: $(srcdir)/Tools/wasm/python.html python.worker.js
+python.html: $(srcdir)/Tools/wasm/python.html python-run.worker.js
 	@cp $(srcdir)/Tools/wasm/python.html $@
 
-python.worker.js: $(srcdir)/Tools/wasm/python.worker.js
-	@cp $(srcdir)/Tools/wasm/python.worker.js $@
+python-run.worker.js: $(srcdir)/Tools/wasm/python-run.worker.js
+	@cp $(srcdir)/Tools/wasm/python-run.worker.js $@
 
 ##########################################################################
 # Build static libmpdec.a

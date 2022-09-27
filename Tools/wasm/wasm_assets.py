@@ -69,25 +69,25 @@ OMIT_FILES = (
 # socket.create_connection() raises an exception:
 # "BlockingIOError: [Errno 26] Operation in progress".
 OMIT_NETWORKING_FILES = (
-    "cgi.py",
-    "cgitb.py",
-    "email/",
-    "ftplib.py",
-    "http/",
-    "imaplib.py",
-    "mailbox.py",
-    "mailcap.py",
-    "nntplib.py",
-    "poplib.py",
-    "smtplib.py",
-    "socketserver.py",
-    "telnetlib.py",
+    # "cgi.py",
+    # "cgitb.py",
+    # "email/",
+    # "ftplib.py",
+    # "http/",
+    # "imaplib.py",
+    # "mailbox.py",
+    # "mailcap.py",
+    # "nntplib.py",
+    # "poplib.py",
+    # "smtplib.py",
+    # "socketserver.py",
+    # "telnetlib.py",
     # keep urllib.parse for pydoc
-    "urllib/error.py",
-    "urllib/request.py",
-    "urllib/response.py",
-    "urllib/robotparser.py",
-    "wsgiref/",
+    # "urllib/error.py",
+    # "urllib/request.py",
+    # "urllib/response.py",
+    # "urllib/robotparser.py",
+    # "wsgiref/",
 )
 
 OMIT_MODULE_FILES = {

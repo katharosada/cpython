@@ -32,9 +32,16 @@ ac_cv_func_shutdown=no
 
 ac_cv_func_epoll_create=no
 ac_cv_func_epoll_create1=no
-ac_cv_header_linux_vm_sockets_h=no
-ac_cv_func_socketpair=no
+#ac_cv_header_linux_vm_sockets_h=no
+#ac_cv_func_socketpair=no
 ac_cv_func_sigaction=no
+
+# Added by Katie
+ac_cv_func_gethostbyaddr=no
+ac_cv_func_gethostbyname=no
+ac_cv_func_gethostbyname_r=no
+# ac_cv_func_getnameinfo=no
+ac_cv_func_getprotobyname=no
 
 # symlinkat is implemented, but fails
 ac_cv_func_symlinkat=no

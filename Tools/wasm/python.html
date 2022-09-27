@@ -46,6 +46,7 @@ class WorkerManager {
 
     async initialiseWorker() {
         if (!this.worker) {
+            console.log('Starting worker...')
             this.worker = new Worker(this.workerURL)
             this.worker.addEventListener('message', this.handleMessageFromWorker)
         }
@@ -295,7 +296,7 @@ window.onload = () => {
         clearButton.removeAttribute('disabled')
     }
 
-    const pythonWorkerManager = new WorkerManager('./python.worker.js', stdio, readyCallback)
+    const pythonWorkerManager = new WorkerManager('./python-run.worker.js', stdio, readyCallback)
 }
     </script>
 </head>

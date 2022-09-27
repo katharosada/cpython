@@ -645,6 +645,10 @@ class BuildProfile:
             # Trigger multi-threaded build.
             ports_cmd.append("-sUSE_PTHREADS")
 
+        # Websockets!
+        ports_cmd.extend(['-lwebsocket', '-sPROXY_POSIX_SOCKETS', '-sUSE_PTHREADS', '-sPROXY_TO_PTHREAD', '-sWEBSOCKET_URL=ws://localhost:8080/', 
+        '-sWEBSOCKET_SUBPROTOCOL=binary'])
+
         # Pre-build libbz2, libsqlite3, libz, and some system libs.
         ports_cmd.extend(["-sUSE_ZLIB", "-sUSE_BZIP2", "-sUSE_SQLITE3"])
         # Multi-threaded sqlite3 has different suffix
@@ -684,6 +688,7 @@ _profiles = [
         host=Host.wasm32_emscripten,
         target=EmscriptenTarget.browser,
         dynamic_linking=True,
+        pthreads=True
     ),
     BuildProfile(
         "emscripten-browser-debug",
@@ -691,6 +696,7 @@ _profiles = [
         host=Host.wasm32_emscripten,
         target=EmscriptenTarget.browser_debug,
         dynamic_linking=True,
+        pthreads=True,
     ),
     BuildProfile(
         "emscripten-node-dl",
