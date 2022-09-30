@@ -5700,7 +5700,7 @@ Return the IP address (a string of the form '255.255.255.255') for a host.");
 #endif
 
 
-#if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME) || defined (HAVE_GETHOSTBYADDR)
+#if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME) || defined (HAVE_GETHOSTBYADDR) || defined (HAVE_GETNAMEINFO)
 static PyObject*
 sock_decode_hostname(const char *name)
 {
@@ -5713,7 +5713,9 @@ sock_decode_hostname(const char *name)
     return PyUnicode_FromString(name);
 #endif
 }
+#endif
 
+#if defined(HAVE_GETHOSTBYNAME_R) || defined (HAVE_GETHOSTBYNAME) || defined (HAVE_GETHOSTBYADDR)
 /* Convenience function common to gethostbyname_ex and gethostbyaddr */
 
 static PyObject *
